@@ -37,6 +37,6 @@ module.exports = (json, d) => {
 		throw new Error('invalid block signature');
 	}
 
-	json.body = block;
+	json.block = block;
 	return json;
 };

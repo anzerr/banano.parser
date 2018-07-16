@@ -1,6 +1,7 @@
 'use strict';
 
+const block = require('./block.js');
+
 module.exports = (json, d) => {
-	json.body = d.slice(8, d.length);
-	return json;
+	return block(json, d);
 };

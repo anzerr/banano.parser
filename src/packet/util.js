@@ -111,7 +111,7 @@ module.exports = {
 		sign: (hash, k) => {
 			let key = transform.buffer(k);
 			if (key.length !== 32) {
-				throw new Error('length_mismatch_private_key');
+				throw new Error('length mismatch private key');
 			}
 			return Buffer.from(nacl.sign.detached(hash, key));
 		},

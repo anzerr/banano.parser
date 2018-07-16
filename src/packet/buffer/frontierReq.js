@@ -1,5 +1,8 @@
 'use strict';
 
-module.exports = () => {
-	return Buffer.concat([Buffer.alloc(32), Buffer.from('ffffffff', 'hex')]);
+module.exports = (header, d) => {
+	const buf = Buffer.alloc(8);
+	buf.writeInt32BE(d.age, 0);
+	buf.writeInt32BE(d.account, 0);
+	return Buffer.concat([Buffer.from(d.start, 'hex'), buf]);
 };

@@ -17,11 +17,14 @@ class PacketBuffer {
 		if (!meta.type[d.type] || !toBuffer[d.type]) {
 			throw new Error('data is not a buffer');
 		}
-		const head = header(meta.type[d.type]);
+		const head = header({
+			versionMax: d.versionMax,
+			versionUsing: d.versionUsing,
+			versionMin: d.versionMin,
+			type: meta.type[d.type] || d.type,
+			extensions: d.extensions
+		});
 
-		if (d.extensions) {
-			// payload.writeInt16BE(d.extensions, 6);
-		}
 		if (d.body instanceof Buffer) {
 			this._data = Buffer.concat([head, d.body]);
 		} else {
