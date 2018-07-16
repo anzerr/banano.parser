@@ -54,7 +54,7 @@ class PacketJson {
 			throw new Error('data is not a buffer');
 		}
 		if (d[0] !== meta.header.magic) {
-			throw new Error('wrong magic number wrong');
+			throw new Error('wrong magic number');
 		}
 		const json = {
 			mainnet: d[1] === meta.header.network.main,

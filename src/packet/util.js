@@ -5,7 +5,6 @@ const blake2b = require('blake2b'),
 	BigNumber = require('BigNumber'),
 	pow = require('banano.pow');
 
-const IPV4MASK = Buffer.from('00000000000000000000ffff', 'hex');
 const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
 
 module.exports = {
@@ -26,33 +25,50 @@ module.exports = {
 	blake: blake2b,
 
 	ip: {
-		parseBuffer: (buf, offset) => {
-			if (buf instanceof Buffer) {
-				const result = [];
-				if (buf.slice(offset, offset + 12).equals(IPV4MASK)) {
-					// IPv4
-					for (let i = offset + 12; i < offset + 16; i++) {
-						result.push(buf[i]);
-					}
-					return result.join('.') + ':' + buf.readUInt16LE(offset + 16);
+		buffer: {
+			IPV4MASK: Buffer.from('00000000000000000000ffff', 'hex'),
+			isIPv4: function(buf) {
+				return buf.slice(0, 12).equals(this.IPV4MASK);
+			},
+
+			parserIPv4: function(buf) {
+				let result = [];
+				for (let i = 12; i < 16; i++) {
+					result.push(buf[i]);
 				}
-				// IPv6
-				for (let i = offset; i < offset + 16; i += 2) {
+				return result.join('.') + ':' + buf.readUInt16LE(16);
+			},
+
+			parseIPv6: function(buf) {
+				let result = [];
+				for (let i = 0; i < 16; i += 2) {
 					result.push(buf.readUInt16BE(i).toString(16));
 				}
-				return '[' + result.join(':').replace(/(^|:)0(:0)*:0(:|$)/, '$1::$3').replace(/:{3,4}/, '::') + ']:' + buf.readUInt16LE(offset + 16);
-			}
-			return null;
-		},
+				return '[' + result.join(':').replace(/(^|:)0(:0)*:0(:|$)/, '$1::$3').replace(/:{3,4}/, '::') + ']:' + buf.readUInt16LE(16);
+			},
 
-		match: (str) => {
-			if ($.is.string(str)) {
-				let m = str.match(/(.+?):(\d*)/);
-				if ($.is.array(m) && m[1] && m[2]) {
-					return {address: m[1], port: Number(m[2])};
+			parse: function(buf) {
+				if (buf instanceof Buffer) {
+					if (this.isIPv4(buf)) {
+						return this.parserIPv4(buf);
+					}
+					return this.parseIPv6(buf);
 				}
+				return null;
 			}
-			return null;
+		},
+		json: {
+			parse: function(str) {
+				let x = str.split(':'), ip = x[0].split('.');
+				let buf = Buffer.alloc(18);
+				buf[10] = 0xff;
+				buf[11] = 0xff;
+				for (let i = 0; i < 4; i++) {
+					buf[12 + i] = Number(ip[i]);
+				}
+				buf.writeUInt16LE(Number(x[1]), 16);
+				return buf;
+			}
 		}
 	},
 

@@ -1,18 +1,13 @@
 'use strict';
 
-const confirmAck = require('./json/confirmAck.js'),
-	block = require('./json/block.js'),
-	def = require('./json/default.js'),
-	keepAlive = require('./json/keepalive.js');
-
 module.exports = {
-	invalid: def,
-	invalidType: def,
-	keepAlive: keepAlive,
-	publish: block,
-	confirmReq: block,
-	confirmAck: confirmAck,
-	bulkPull: def,
-	bulkPush: def,
-	frontierReq: def
+	invalid: require('./json/invalid.js'),
+	invalidType: require('./json/invalidType.js'),
+	keepAlive: require('./json/keepAlive.js'),
+	publish: require('./json/publish.js'),
+	confirmReq: require('./json/confirmReq.js'),
+	confirmAck: require('./json/confirmAck.js'),
+	bulkPull: require('./json/bulkPull.js'),
+	bulkPush: require('./json/bulkPush.js'),
+	frontierReq: require('./json/frontierReq.js')
 };

@@ -1,19 +1,13 @@
 'use strict';
 
-const bulkPull = require('./buffer/bulkPull.js'),
-	def = require('./buffer/default.js'),
-	frontierReq = require('./buffer/frontierReq.js'),
-	keepAlive = require('./buffer/keepAlive.js'),
-	publish = require('./buffer/publish.js');
-
 module.exports = {
-	invalid: def,
-	invalidType: def,
-	keepAlive: keepAlive,
-	publish: publish,
-	confirmReq: publish,
-	confirmAck: def,
-	bulkPull: bulkPull,
-	bulkPush: def,
-	frontierReq: frontierReq
+	invalid: require('./buffer/invalid.js'),
+	invalidType: require('./buffer/invalidType.js'),
+	keepAlive: require('./buffer/keepAlive.js'),
+	publish: require('./buffer/publish.js'),
+	confirmReq: require('./buffer/confirmReq.js'),
+	confirmAck: require('./buffer/confirmAck.js'),
+	bulkPull: require('./buffer/bulkPull.js'),
+	bulkPush: require('./buffer/bulkPush.js'),
+	frontierReq: require('./buffer/frontierReq.js')
 };

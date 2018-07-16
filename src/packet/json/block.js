@@ -6,7 +6,7 @@ const meta = require('../meta.js'),
 module.exports = (json, d) => {
 	const block = {type: meta.block.typeMap[json.extensions]};
 	if (!block.type) {
-		throw new Error('invalid_block_type');
+		throw new Error('invalid block type');
 	}
 
 	let pos = 8, fields = meta.block.struct[block.type], order = meta.block.order[block.type];
@@ -17,7 +17,7 @@ module.exports = (json, d) => {
 	}
 
 	if (d.length !== pos + 72) {
-		throw new Error('invalid_block_length');
+		throw new Error('invalid block length');
 	}
 
 	let work = d.slice(pos + 64, pos + 72);
@@ -27,11 +27,15 @@ module.exports = (json, d) => {
 	block.work = work.toString('hex');
 
 	if (!u.block.validWork(block.previous, block.work)) {
-		throw new Error('invalid_block_work');
+		throw new Error('invalid block work');
 	}
 
 	block.hash = u.block.hash(block);
 	block.signature = d.slice(pos, pos + 64).toString('hex');
+
+	if (!u.block.verify(block.hash, block.signature, block.account)) {
+		throw new Error('invalid block signature');
+	}
 
 	json.body = block;
 	return json;

@@ -26,7 +26,7 @@ let pJson = {
 	versionMin: 7,
 	type: 'keepAlive',
 	extensions: 0,
-	body:[
+	body: [
 		'174.138.55.224:7071',
 		'159.65.244.45:7071',
 		'185.243.8.61:7075',
@@ -37,11 +37,11 @@ let pJson = {
 		'167.99.194.145:7071'
 	]
 };
+
 if (!compare(p.get(), pJson)) {
 	throw new Error('failed to parse packet into json');
 }
 
-// TODO: not fully supported yet
-/* if (p.toBuffer().get().toString('hex') !== parsePacket) {
+if (p.toBuffer().get().toString('hex').substr(12) !== parsePacket.substr(12)) {
 	throw new Error('packet is malformed going back into buffer format');
-}*/
+}
