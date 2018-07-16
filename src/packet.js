@@ -66,6 +66,8 @@ class PacketJson {
 		};
 		if (toJson[json.type]) {
 			this._data = toJson[json.type](json, d);
+		} else {
+			this._data = json;
 		}
 		return this;
 	}

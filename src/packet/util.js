@@ -7,12 +7,24 @@ const blake2b = require('blake2b'),
 
 const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
 
+const transform = {
+	buffer: function(a) {
+		return a instanceof Buffer ? a : Buffer.from(a, 'hex');
+	},
+
+	uint8: function(a) {
+		return Uint8Array.from(this.buffer(a));
+	}
+};
+
 module.exports = {
 	array: {
 		key: (a, k) => {
 			return a.indexOf(k);
 		}
 	},
+
+	transform,
 
 	copy: (d) => {
 		let o = {};
@@ -93,11 +105,11 @@ module.exports = {
 		},
 
 		verify: (hash, signature, account) => {
-			return nacl.sign.detached.verify(hash, signature, account);
+			return nacl.sign.detached.verify(transform.uint8(hash), transform.uint8(signature), transform.uint8(account));
 		},
 
 		sign: (hash, k) => {
-			let key = k instanceof Buffer ? k : Buffer.from(k, 'hex');
+			let key = transform.buffer(k);
 			if (key.length !== 32) {
 				throw new Error('length_mismatch_private_key');
 			}
