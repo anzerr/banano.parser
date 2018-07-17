@@ -23,7 +23,8 @@ module.exports = {
 		confirmAck: 5,
 		bulkPull: 6,
 		bulkPush: 7,
-		frontierReq: 8
+		frontierReq: 8,
+		bulkPullBlocks: 9
 	},
 
 	typeMap: [
@@ -36,6 +37,7 @@ module.exports = {
 		'bulkPull',
 		'bulkPush',
 		'frontierReq',
+		'bulkPullBlocks'
 	],
 
 	block: {

@@ -9,5 +9,6 @@ module.exports = {
 	confirmAck: require('./buffer/confirmAck.js'),
 	bulkPull: require('./buffer/bulkPull.js'),
 	bulkPush: require('./buffer/bulkPush.js'),
-	frontierReq: require('./buffer/frontierReq.js')
+	frontierReq: require('./buffer/frontierReq.js'),
+	bulkPullBlocks: require('./buffer/bulkPullBlocks.js')
 };
