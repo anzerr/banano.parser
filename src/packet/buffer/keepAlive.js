@@ -3,16 +3,15 @@
 const u = require('../util.js');
 
 module.exports = (header, d) => {
-	let body = [];
+	let peer = [];
 
-	for (let i in d.body) {
-		let peer = u.ip.json.parse(d.body[i]);
-		body.push(peer);
+	for (let i in d.peer) {
+		peer.push(u.ip.json.parse(d.peer[i]));
 	}
 
-	while (body.length < 8) {
-		body.push(Buffer.alloc(18));
+	while (peer.length < 8) {
+		peer.push(Buffer.alloc(18));
 	}
 
-	return Buffer.concat([header, Buffer.concat(body)]);
+	return Buffer.concat([header, Buffer.concat(peer)]);
 };

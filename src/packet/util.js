@@ -8,12 +8,26 @@ const blake2b = require('blake2b'),
 const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
 
 const transform = {
-	buffer: function(a) {
-		return a instanceof Buffer ? a : Buffer.from(a, 'hex');
-	},
-
 	uint8: function(a) {
 		return Uint8Array.from(this.buffer(a));
+	},
+
+	buffer: function(data, n) {
+		let isBuf = data instanceof Buffer, isString = typeof data === 'string';
+		if (!n) {
+			return isBuf ? data : Buffer.from(data, 'hex');
+		}
+
+		if (!isBuf && !isString) {
+			throw new Error('wrong type has to be string or buffer');
+		}
+		if (isBuf && data.length === n) {
+			return data;
+		}
+		if (isString && data.match(/^[A-F-a-f0-9]+$/) && data.length === n * 2) {
+			return Buffer.from(data, 'hex');
+		}
+		throw new Error('wrong length for data needs to be ' + n);
 	}
 };
 
@@ -118,6 +132,11 @@ module.exports = {
 
 		validWork: (hex, work) => {
 			return pow.isValid(hex, work);
+		},
+
+		// this is async
+		createWork: (hex) => {
+			return pow.findPow(hex);
 		}
 	}
 };

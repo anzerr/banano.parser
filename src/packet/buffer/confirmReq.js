@@ -1,5 +1,10 @@
 'use strict';
 
-module.exports = () => {
-	return null;
+const block = require('./block.js');
+
+module.exports = (header, d, flag) => {
+	return Buffer.concat([
+		header,
+		block(header, d, flag)
+	]);
 };

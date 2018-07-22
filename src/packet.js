@@ -7,9 +7,10 @@ const header = require('./packet/header.js'),
 
 class PacketBuffer {
 
-	constructor(d) {
+	constructor(d, flag) {
 		this._source = d;
 		this._data = d;
+		this._flag = flag || {};
 	}
 
 	format() {
@@ -28,7 +29,7 @@ class PacketBuffer {
 		if (d.body instanceof Buffer) {
 			this._data = Buffer.concat([head, d.body]);
 		} else {
-			this._data = toBuffer[d.type](head, d);
+			this._data = toBuffer[d.type](head, d, this._flag);
 		}
 		return this;
 	}
@@ -39,16 +40,17 @@ class PacketBuffer {
 
 	toJson() {
 		/* eslint no-use-before-define: 0*/
-		return new PacketJson(this._data).format();
+		return new PacketJson(this._data, this._flag).format();
 	}
 
 }
 
 class PacketJson {
 
-	constructor(d) {
+	constructor(d, flag) {
 		this._source = d;
 		this._data = d;
+		this._flag = flag || {};
 	}
 
 	format() {
@@ -68,7 +70,7 @@ class PacketJson {
 			extensions: d.readUInt16BE(6),
 		};
 		if (toJson[json.type]) {
-			this._data = toJson[json.type](json, d);
+			this._data = toJson[json.type](json, d, this._flag);
 		} else {
 			this._data = json;
 		}
@@ -80,7 +82,7 @@ class PacketJson {
 	}
 
 	toBuffer() {
-		return new PacketBuffer(this._data).format();
+		return new PacketBuffer(this._data, this._flag).format();
 	}
 
 }

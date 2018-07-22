@@ -8,9 +8,9 @@ module.exports = {
 			test: 0xff
 		}, // network
 		version: {
-			max: 0x0f,
-			current: 0x0a,
-			min: 0x07
+			max: 15,
+			current: 10,
+			min: 7
 		}
 	},
 
@@ -43,7 +43,7 @@ module.exports = {
 	block: {
 		type: {
 			invalid: 0x00,
-			invalidBlock: 0x01,
+			notBlock: 0x01,
 			send: 0x02,
 			receive: 0x03,
 			open: 0x04,
@@ -53,7 +53,7 @@ module.exports = {
 
 		typeMap: [
 			'invalid',
-			'invalidBlock',
+			'notBlock',
 			'send',
 			'receive',
 			'open',

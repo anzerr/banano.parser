@@ -3,7 +3,7 @@
 const meta = require('../meta.js'),
 	u = require('../util.js');
 
-module.exports = (json, d) => {
+module.exports = (json, d, flag) => {
 	const block = {type: meta.block.typeMap[json.extensions]};
 	if (!block.type) {
 		throw new Error('invalid block type');
@@ -26,14 +26,14 @@ module.exports = (json, d) => {
 	}
 	block.work = work.toString('hex');
 
-	if (!u.block.validWork(block.previous, block.work)) {
+	if (!flag.skipValidation && !u.block.validWork(block.previous, block.work)) {
 		throw new Error('invalid block work');
 	}
 
 	block.hash = u.block.hash(block);
 	block.signature = d.slice(pos, pos + 64).toString('hex');
 
-	if (!u.block.verify(block.hash, block.signature, block.account)) {
+	if (!flag.skipValidation && !u.block.verify(block.hash, block.signature, block.account)) {
 		throw new Error('invalid block signature');
 	}
 
