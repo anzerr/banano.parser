@@ -62,13 +62,36 @@ module.exports = {
 		],
 
 		endian: {
+			invalid: 1,
+			notBlock: 1,
 			send: 1,
 			receive: 1,
+			open: 1,
 			change: 1,
 			state: 0
 		},
 
 		order: {
+			invalid: [],
+			notBlock: [],
+			send: [
+				'previous',
+				'destination',
+				'balance'
+			],
+			receive: [
+				'previous',
+				'source'
+			],
+			open: [
+				'source',
+				'representative',
+				'account'
+			],
+			change: [
+				'previous',
+				'representative'
+			],
 			state: [
 				'account',
 				'previous',
@@ -79,6 +102,8 @@ module.exports = {
 		},
 
 		struct: {
+			invalid: {},
+			notBlock: {},
 			send: {
 				previous: 32,
 				destination: 32,
@@ -87,6 +112,11 @@ module.exports = {
 			receive: {
 				previous: 32,
 				source: 32
+			},
+			open: {
+				source: 32,
+				representative: 32,
+				account: 32
 			},
 			change: {
 				previous: 32,
