@@ -9,7 +9,7 @@ module.exports = (head) => {
 		head.versionMax || meta.header.version.max, // max version
 		head.versionUsing || meta.header.version.current, // current version
 		head.versionMin || meta.header.version.min, // min version
-		head.type, // type
+		Number.isInteger(head.type) ? head.type : meta.type[head.type] || 0, // type
 		0x00, // extensions 16-bits
 		0x00 // extensions 16-bits
 	]);
