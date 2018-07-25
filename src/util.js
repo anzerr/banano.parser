@@ -1,7 +1,7 @@
 'use strict';
 
 const meta = require('./packet/meta.js'),
- 	header = require('./packet/header.js');
+	header = require('./packet/header.js');
 
 const util = {};
 
@@ -17,7 +17,7 @@ util.packetType = (a) => {
 
 util.blockType = (a) => {
 	if (a instanceof Buffer) {
-		return meta.block.typeMap[a.readInt16BE(6)]; // make this better read buffer 16 bit interger
+		return meta.block.typeMap[a.readInt16BE(6)];
 	}
 	if (Number.isInteger(a)) {
 		return meta.block.typeMap[a];
@@ -38,13 +38,16 @@ util.getBlockSize = (a, detail) => {
 	for (let i in meta.block.order[id]) {
 		let n = meta.block.order[id][i];
 		if (detail) {
-			out.push({
-				name: n,
-				size: meta.block.struct[id][n]
-			});
+			out.push({name: n, size: meta.block.struct[id][n]});
 		} else {
 			out += meta.block.struct[id][n];
 		}
+	}
+	if (detail) {
+		out.push({name: 'signature', size: 64});
+		out.push({name: 'work', size: 8});
+	} else {
+		out += 64 + 8;
 	}
 	return out;
 };
