@@ -17,7 +17,9 @@ let stateSize = 0, state = [
 	{name: 'previous', size: 32},
 	{name: 'representative', size: 32},
 	{name: 'balance', size: 16},
-	{name: 'link', size: 32}
+	{name: 'link', size: 32},
+	{name: 'signature', size: 64},
+	{name: 'work', size: 8}
 ];
 state.map((e) => {
 	return (stateSize += e.size);

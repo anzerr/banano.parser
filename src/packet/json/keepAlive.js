@@ -13,6 +13,6 @@ module.exports = (json, d) => {
 			peers.push(peer);
 		}
 	}
-	json.peer = peers;
+	json.peer = peers; // a max of 8 ipv4 or ipv6
 	return json;
 };

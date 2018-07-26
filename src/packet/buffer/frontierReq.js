@@ -8,7 +8,7 @@ module.exports = (header, d) => {
 	buf.writeUIntLE(d.count || 0, 4, 4);
 	return Buffer.concat([
 		header,
-		u.transform.buffer(d.account, 32),
+		u.transform.buffer(d.start, 32),
 		buf
 	]);
 };
