@@ -1,12 +1,13 @@
 'use strict';
 
 const meta = require('../meta.js'),
-	u = require('../util.js');
+	u = require('../util.js'),
+	error = require('../../error.js');
 
 module.exports = (json, d, flag) => {
 	const block = {type: meta.block.typeMap[json.extensions]};
 	if (!block.type) {
-		throw new Error('invalid block type');
+		throw new error.Block('invalid block type');
 	}
 
 	let pos = 8, fields = meta.block.struct[block.type], order = meta.block.order[block.type];
@@ -17,7 +18,7 @@ module.exports = (json, d, flag) => {
 	}
 
 	if (d.length !== pos + 72) {
-		throw new Error('invalid block length');
+		throw new error.Block('invalid block length');
 	}
 
 	let work = d.slice(pos + 64, pos + 72);
@@ -27,14 +28,14 @@ module.exports = (json, d, flag) => {
 	block.work = work.toString('hex');
 
 	if (!flag.skipValidation && !u.block.validWork(block.previous, block.work)) {
-		throw new Error('invalid block work');
+		throw new error.Block('invalid block work');
 	}
 
 	block.hash = u.block.hash(block);
 	block.signature = d.slice(pos, pos + 64).toString('hex');
 
 	if (!flag.skipValidation && !u.block.verify(block.hash, block.signature, block.account)) {
-		throw new Error('invalid block signature');
+		throw new error.Block('invalid block signature');
 	}
 
 	json.block = block;

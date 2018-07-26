@@ -1,8 +1,10 @@
 'use strict';
 
+const error = require('../../error.js');
+
 module.exports = (json, d) => {
 	if (d.length !== (32 + 32 + 1 + 4 + 8)) {
-		throw new Error('invalid length');
+		throw new error.Packet('invalid length');
 	}
 	json.min = d.slice(8, 40).toString('hex'); // 32 min
 	json.max = d.slice(40, 72).toString('hex'); // 32 max

@@ -3,7 +3,8 @@
 const header = require('./packet/header.js'),
 	meta = require('./packet/meta.js'),
 	toBuffer = require('./packet/buffer.js'),
-	toJson = require('./packet/json.js');
+	toJson = require('./packet/json.js'),
+	error = require('./error.js');
 
 class PacketBuffer {
 
@@ -16,7 +17,7 @@ class PacketBuffer {
 	format() {
 		let d = this._source;
 		if (!meta.type[d.type] || !toBuffer[d.type]) {
-			throw new Error('data is not a buffer');
+			throw new error.Packet('data is not a buffer');
 		}
 		const head = header({
 			versionMax: d.versionMax,
@@ -56,10 +57,10 @@ class PacketJson {
 	format() {
 		let d = this._source;
 		if (!(d instanceof Buffer)) {
-			throw new Error('data is not a buffer');
+			throw new error.Packet('data is not a buffer');
 		}
 		if (d[0] !== meta.header.magic) {
-			throw new Error('wrong magic number');
+			throw new error.Packet('wrong magic number');
 		}
 		const json = {
 			mainnet: d[1] === meta.header.network.main,
