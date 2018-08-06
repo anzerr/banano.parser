@@ -3,7 +3,7 @@
 class PacketError extends Error {
 
 	constructor() {
-		super();
+		super(...arguments);
 	}
 
 }

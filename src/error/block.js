@@ -3,7 +3,7 @@
 class BlockError extends Error {
 
 	constructor() {
-		super();
+		super(...arguments);
 	}
 
 }
