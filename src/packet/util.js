@@ -127,7 +127,7 @@ module.exports = {
 			if (key.length !== 32) {
 				throw new Error('length mismatch private key');
 			}
-			return Buffer.from(nacl.sign.detached(hash, key));
+			return Buffer.from(nacl.sign.detached(transform.uint8(hash), transform.uint8(key)));
 		},
 
 		validWork: (hex, work) => {

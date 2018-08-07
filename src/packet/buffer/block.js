@@ -23,13 +23,15 @@ module.exports = (header, d, flag) => {
 		payload.push(value);
 	}
 
-	let signature = Buffer.from(block.signature, 'hex');
-	if (!signature) {
-		let hash = u.block.hash(payload);
+	let signature = null;
+	if (!block.signature) {
+		let hash = u.block.hash(block);
 		if (!flag.privateKey) {
 			throw new error.Block('can\'t sign without a private key');
 		}
 		signature = u.block.sign(hash, flag.privateKey);
+	} else {
+		signature = Buffer.from(block.signature, 'hex');
 	}
 
 	let work = Buffer.from(block.work, 'hex');
