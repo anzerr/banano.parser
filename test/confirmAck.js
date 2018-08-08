@@ -11,19 +11,19 @@ const ack = {
 		versionMin: 7,
 		type: 'confirmAck',
 		extensions: 6,
-		account: '0000000000000000000000000000000000000000000000000000000000000000',
-		signature: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
-		sequence: '0000000000000000',
+		account: Buffer.alloc(32, 0).toString('hex'),
+		signature: Buffer.alloc(64, 1).toString('hex'),
+		sequence: Buffer.alloc(8, 3).toString('hex'),
 		block: {
 			type: 'state',
-			account: '0000000000000000000000000000000000000000000000000000000000000000',
-			previous: '0000000000000000000000000000000000000000000000000000000000000000',
-			representative: '0000000000000000000000000000000000000000000000000000000000000000',
-			balance: '00000000000000000000000000000000',
-			link: '0000000000000000000000000000000000000000000000000000000000000000',
-			work: '0000000000000000',
-			hash: '262fe88523691984386d53b022c52d5a8e414570d8a3ce941475760184465b18',
-			signature: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+			account: Buffer.alloc(32, 4).toString('hex'),
+			previous: Buffer.alloc(32, 5).toString('hex'),
+			representative: Buffer.alloc(32, 6).toString('hex'),
+			balance: Buffer.alloc(16, 7).toString('hex'),
+			link: Buffer.alloc(32, 8).toString('hex'),
+			work: Buffer.alloc(8, 9).toString('hex'),
+			hash: 'd7f3c2ddabbad18d62d13c06f30e7793a858140d10779e9692b572d2e0fb5441',
+			signature: Buffer.alloc(64, 2).toString('hex')
 		}
 	},
 	buffer: Buffer.concat([
@@ -31,17 +31,17 @@ const ack = {
 			type: 5, // ack
 			extensions: 6 // state block
 		}), // header
-		Buffer.alloc(32), // account
-		Buffer.alloc(64), // signature
-		Buffer.alloc(8), // sequence
+		Buffer.alloc(32, 0), // account
+		Buffer.alloc(64, 1), // signature
+		Buffer.alloc(8, 3), // sequence
 		Buffer.concat([
-			Buffer.alloc(32), // Account public key
-			Buffer.alloc(32), // Previous block hash
-			Buffer.alloc(32), // Representative public key
-			Buffer.alloc(16), // uint128_t Balance
-			Buffer.alloc(32), // Link
-			Buffer.alloc(64), // Signature
-			Buffer.alloc(8) // uint64_t Work
+			Buffer.alloc(32, 4), // Account public key
+			Buffer.alloc(32, 5), // Previous block hash
+			Buffer.alloc(32, 6), // Representative public key
+			Buffer.alloc(16, 7), // uint128_t Balance
+			Buffer.alloc(32, 8), // Link
+			Buffer.alloc(64, 2), // Signature
+			Buffer.alloc(8, 9) // uint64_t Work
 		])
 	])
 };

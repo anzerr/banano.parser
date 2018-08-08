@@ -13,14 +13,14 @@ const pub = {
 		extensions: 6,
 		block: {
 			type: 'state',
-			account: '0000000000000000000000000000000000000000000000000000000000000000',
-			previous: '0000000000000000000000000000000000000000000000000000000000000000',
-			representative: '0000000000000000000000000000000000000000000000000000000000000000',
-			balance: '00000000000000000000000000000000',
-			link: '0000000000000000000000000000000000000000000000000000000000000000',
-			work: '0000000000000000',
-			hash: '262fe88523691984386d53b022c52d5a8e414570d8a3ce941475760184465b18',
-			signature: '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+			account: Buffer.alloc(32, 0).toString('hex'),
+			previous: Buffer.alloc(32, 1).toString('hex'),
+			representative: Buffer.alloc(32, 2).toString('hex'),
+			balance: Buffer.alloc(16, 3).toString('hex'),
+			link: Buffer.alloc(32, 4).toString('hex'),
+			hash: '605fbb27b5623808a4631862598eb5b0a2fbeca7a709f4203ce8335a0453cfe8',
+			signature: Buffer.alloc(64, 5).toString('hex'),
+			work: Buffer.alloc(8, 6).toString('hex')
 		}
 	},
 	buffer: Buffer.concat([
@@ -29,13 +29,13 @@ const pub = {
 			extensions: 6 // state block
 		}), // header
 		Buffer.concat([
-			Buffer.alloc(32), // Account public key
-			Buffer.alloc(32), // Previous block hash
-			Buffer.alloc(32), // Representative public key
-			Buffer.alloc(16), // uint128_t Balance
-			Buffer.alloc(32), // Link
-			Buffer.alloc(64), // Signature
-			Buffer.alloc(8) // uint64_t Work
+			Buffer.alloc(32, 0), // Account public key
+			Buffer.alloc(32, 1), // Previous block hash
+			Buffer.alloc(32, 2), // Representative public key
+			Buffer.alloc(16, 3), // uint128_t Balance
+			Buffer.alloc(32, 4), // Link
+			Buffer.alloc(64, 5), // Signature
+			Buffer.alloc(8, 6) // uint64_t Work
 		])
 	])
 };

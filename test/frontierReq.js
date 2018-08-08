@@ -11,19 +11,19 @@ const frq = {
 		versionMin: 7,
 		type: 'frontierReq',
 		extensions: 0,
-		start: '0000000000000000000000000000000000000000000000000000000000000000',
+		start: Buffer.alloc(32, 0).toString('hex'),
 		age: 0xffffffff,
-		count: 0xffffffff
+		count: 0xaaaaaaaa
 	},
 	buffer: Buffer.concat([
 		util.createHeader({
 			type: 8, // frontier req
 		}),
 		Buffer.concat([
-			Buffer.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex'),
+			Buffer.alloc(32, 0),
 			Buffer.from([
 				0xff, 0xff, 0xff, 0xff, // age 32 bit
-				0xff, 0xff, 0xff, 0xff, // count 32 bit
+				0xaa, 0xaa, 0xaa, 0xaa, // count 32 bit
 			])
 		])
 	])

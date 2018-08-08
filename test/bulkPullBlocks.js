@@ -11,21 +11,21 @@ const bpb = {
 		versionMin: 7,
 		type: 'bulkPullBlocks',
 		extensions: 0,
-		min: '0000000000000000000000000000000000000000000000000000000000000000',
-		max: '0000000000000000000000000000000000000000000000000000000000000000',
+		min: Buffer.alloc(32, 0).toString('hex'),
+		max: Buffer.alloc(32, 1).toString('hex'),
 		mode: 0xff,
-		count: 0xffffffff
+		count: 0xaaaaaaaa
 	},
 	buffer: Buffer.concat([
 		util.createHeader({
 			type: 9, // bulk pull blocks
 		}),
 		Buffer.concat([
-			Buffer.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex'), // min
-			Buffer.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex'), // max
+			Buffer.alloc(32, 0), // min
+			Buffer.alloc(32, 1), // max
 			Buffer.from([
 				0xff, // mode 8 bit
-				0xff, 0xff, 0xff, 0xff, // count 32 bit
+				0xaa, 0xaa, 0xaa, 0xaa, // count 32 bit
 			])
 		])
 	])

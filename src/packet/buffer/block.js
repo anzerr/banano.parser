@@ -11,8 +11,9 @@ module.exports = (header, d, flag) => {
 	}
 	header.writeInt16BE(meta.block.type[block.type], 6);
 
-	const payload = [], fields = meta.block.struct[block.type];
-	for (let i in fields) {
+	const payload = [], fields = meta.block.struct[block.type], order = meta.block.order[block.type];
+	for (let x in order) {
+		let i = order[x];
 		if (!block[i]) {
 			throw new error.Block('missing field ' + i);
 		}

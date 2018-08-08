@@ -11,16 +11,16 @@ const bup = {
 		versionMin: 7,
 		type: 'bulkPull',
 		extensions: 0,
-		account: '0000000000000000000000000000000000000000000000000000000000000000',
-		end: '0000000000000000000000000000000000000000000000000000000000000000'
+		account: Buffer.alloc(32, 0).toString('hex'),
+		end: Buffer.alloc(32, 1).toString('hex')
 	},
 	buffer: Buffer.concat([
 		util.createHeader({
 			type: 6, // bulk pull
 		}),
 		Buffer.concat([
-			Buffer.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex'),
-			Buffer.from('0000000000000000000000000000000000000000000000000000000000000000', 'hex')
+			Buffer.alloc(32, 0),
+			Buffer.alloc(32, 1)
 		])
 	])
 };

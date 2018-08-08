@@ -5,7 +5,7 @@
     "scripts": {
         "test": "node test.js",
         "init": "rm -R node_modules package-lock.json && npm i",
-		"commit": "git add . && git commit -m \"fast save\" && git push origin master"
+        "commit": "git add . && git commit -m \"fast save\" && git push origin master"
     },
     "keywords": [],
     "author": "",
