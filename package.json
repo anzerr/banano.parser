@@ -8,8 +8,8 @@
 		"commit": "git add . && git commit -m \"fast save\" && git push origin master"
 	},
 	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"author": "anzerr",
+	"license": "MIT",
 	"description": "",
 	"dependencies": {
 		"banano.pow": "git+https://github.com/anzerr/banano.pow.git",
@@ -19,10 +19,22 @@
 		"uint": "git+https://github.com/anzerr/uint.git"
 	},
 	"devDependencies": {
-		"eslint": "^5.8.0",
+		"eslint": "5.11.1",
 		"eslint-config-basic": "git+ssh://git@github.com/anzerr/eslintrc.git"
 	},
 	"eslintConfig": {
 		"extends": "eslint-config-basic"
-	}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:anzerr/banano.parser.git"
+	},
+	"engines": {
+		"node": ">= 0.10.0"
+	},
+	"types": "index.d.ts",
+	"bugs": {
+		"url": "https://github.com/anzerr/banano.parser/issues"
+	},
+	"homepage": "https://github.com/anzerr/banano.parser#readme"
 }
