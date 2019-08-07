@@ -5,6 +5,7 @@ Parse network packets from banano into json or json back into network packets
 #### `Install`
 ``` bash
 npm install --save git+https://github.com/anzerr/banano.parser.git
+npm install --save @anzerr/banano.parser
 ```
 
 ##### `Add`
