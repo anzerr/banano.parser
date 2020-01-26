@@ -1,5 +1,7 @@
 
 ### `Intro`
+![GitHub Actions status | publish](https://github.com/anzerr/banano.parser/workflows/publish/badge.svg)
+
 Parse network packets from banano into json or json back into network packets
 
 #### `Install`
