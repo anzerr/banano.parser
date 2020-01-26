@@ -1,16 +1,33 @@
 {
 	"name": "banano.parser",
 	"version": "1.0.8",
+	"keywords": [
+		"banano",
+		"json",
+		"network-packets",
+		"nodejs",
+		"util"
+	],
+	"homepage": "https://github.com/anzerr/banano.parser#readme",
+	"bugs": {
+		"url": "https://github.com/anzerr/banano.parser/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:anzerr/banano.parser.git"
+	},
+	"license": "MIT",
+	"author": "anzerr",
 	"main": "index.js",
+	"types": "index.d.ts",
 	"scripts": {
 		"test": "node test.js",
 		"init": "rm -R node_modules package-lock.json && npm i",
 		"commit": "git add . && git commit -m \"fast save\" && git push origin master"
 	},
-	"keywords": [],
-	"author": "anzerr",
-	"license": "MIT",
-	"description": "",
+	"eslintConfig": {
+		"extends": "eslint-config-basic"
+	},
 	"dependencies": {
 		"banano.pow": "git+https://github.com/anzerr/banano.pow.git",
 		"bignumber": "^1.1.0",
@@ -21,19 +38,8 @@
 	"devDependencies": {
 		"eslint-config-basic": "git+ssh://git@github.com/anzerr/eslintrc.git"
 	},
-	"eslintConfig": {
-		"extends": "eslint-config-basic"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:anzerr/banano.parser.git"
-	},
 	"engines": {
 		"node": ">= 0.10.0"
 	},
-	"types": "index.d.ts",
-	"bugs": {
-		"url": "https://github.com/anzerr/banano.parser/issues"
-	},
-	"homepage": "https://github.com/anzerr/banano.parser#readme"
+	"description": ""
 }
