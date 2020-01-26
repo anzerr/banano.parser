@@ -2,7 +2,6 @@
 
 const blake2b = require('blake2b'),
 	nacl = require('nacl'),
-	BigNumber = require('BigNumber'),
 	pow = require('banano.pow');
 
 const STATE_BLOCK_PREAMBLE = '0000000000000000000000000000000000000000000000000000000000000006';
@@ -38,7 +37,7 @@ module.exports = {
 		}
 	},
 
-	transform,
+	transform: transform,
 
 	copy: (d) => {
 		let o = {};
@@ -102,7 +101,7 @@ module.exports = {
 		hash: (block) => {
 			let balancePadded = null;
 			if (typeof block === 'number') {
-				let balance = new BigNumber(666300000000000000000000000000000);
+				let balance = BigInt(666300000000000000000000000000000);
 				balancePadded = balance.toString(16);
 				while (balancePadded.length < 32) {
 					balancePadded = '0' + balancePadded;
