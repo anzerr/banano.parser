@@ -25,18 +25,13 @@
 		"init": "rm -R node_modules package-lock.json && npm i",
 		"commit": "git add . && git commit -m \"fast save\" && git push origin master"
 	},
-	"eslintConfig": {
-		"extends": "eslint-config-basic"
-	},
 	"dependencies": {
 		"banano.pow": "git+https://github.com/anzerr/banano.pow.git",
 		"blake2b": "git+https://github.com/anzerr/blake2b.git",
 		"nacl": "git+https://github.com/anzerr/nacl.git",
 		"uint": "git+https://github.com/anzerr/uint.git"
 	},
-	"devDependencies": {
-		"eslint-config-basic": "git+ssh://git@github.com/anzerr/eslintrc.git"
-	},
+	"devDependencies": {},
 	"engines": {
 		"node": ">= 0.10.0"
 	},
